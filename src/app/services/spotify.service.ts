@@ -18,11 +18,11 @@ export class SpotifyService {
   }
 
   async inicializarUsuario(){
-    const token =localStorage.getItem('token');
-    
     if(!!this.usuario){
       return true;
     }
+    
+    const token =localStorage.getItem('token');
 
     if(!token){
       return false
@@ -40,7 +40,7 @@ export class SpotifyService {
 
   async obterSpotifyUsuario(){
     const userInfo = await this.spotifyApi.getMe();
-    this.usuario =spotifyUserParaUsuario(userInfo);
+    this.usuario = spotifyUserParaUsuario(userInfo);
   }
 
   obterUrlLogin(){
@@ -49,7 +49,7 @@ export class SpotifyService {
     const redirectUrl = `redirect_uri=${SpotifyConfiguration.redirectUrl}&`;
     const scopes = `scope=${SpotifyConfiguration.scopes.join('%20')}&`;
     const responseType = `response_type=token&show_dialog=true`;
-    return authEndpoint + clientId + redirectUrl + scopes+responseType
+    return authEndpoint + clientId + redirectUrl + scopes + responseType
   }
 
   obterTokenUrlCallback(){

@@ -19,12 +19,13 @@ export class AutenticadoGuard implements CanLoad {
     segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
     const token = localStorage.getItem('token');
+
     if(!token){
       return this.naoAutenticado();
     }
 
-    return new Promise((res) =>{
-      const usuarioCriado = this.spotifyService.inicializarUsuario();
+    return new Promise(async (res) =>{
+      const usuarioCriado = await this.spotifyService.inicializarUsuario();
       if(usuarioCriado){
         res(true);
       }else{
